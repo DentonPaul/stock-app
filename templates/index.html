@@ -9,11 +9,7 @@
             <div>This is a quick way to view the price of stocks</div>
         </div>
         <div class="col">
-            <ul>
-                <li> <a href="{{ url_for('stock', ticker='AAPL') }}">Veiw AAPL</a></li>
-                <li> <a href="{{ url_for('stock', ticker='GOOGL') }}">Veiw GOOGL</a></li>
-                <li> <a href="{{ url_for('stock', ticker='FB') }}">Veiw FB</a></li>
-            </ul>
+            {% include 'portfolio.html' %}
         </div>
     </div>
 </div>

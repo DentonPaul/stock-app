@@ -4,9 +4,13 @@
 {% block content %}
 <div class="row">
     <div class="col-sm">
-        <h1 class="mb-3">{{ticker}}</h1>
+        <h1 class="mb-3">{{ticker | upper}}</h1>
         <hr/>
-        <h2>Price: ${{ stock_price }}</h2>
+        <h2>Price: ${{ stock_price | round(2, 'floor') }}</h2>
+        <h2>Company Name: {{ company_name | default('Unknown') }}</h2>
+    </div>
+    <div class="col">
+        {% include 'portfolio.html' %}
     </div>
 </div>
 {% endblock %}
