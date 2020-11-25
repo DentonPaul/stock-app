@@ -18,5 +18,5 @@ def stock(ticker):
 
 @app.route('/')
 def home():
-    return "Try /stock/AAPL aye hello me how you doing"
+    return "Try /stock/AAPL"
     
