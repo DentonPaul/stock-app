@@ -9,7 +9,7 @@ def fetch_price(ticker):
     data = requests.get(API_URL.format(ticker=ticker.upper()), params={'apikey':'demo'}).json()
     return data['price']
 
-#http:/localhost:5000/stock/AAPL
+# http:/localhost:5000/stock/AAPL
 
 @app.route('/stock/<ticker>')
 def stock(ticker):
@@ -18,5 +18,5 @@ def stock(ticker):
 
 @app.route('/')
 def home():
-    return "Try /stock/AAPL"
+    return "Try /stock/AAPL aye hello me"
     
