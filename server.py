@@ -18,5 +18,5 @@ def stock(ticker):
 
 @app.route('/')
 def home():
-    return "Try /stock/AAPL"
+    return render_template('index.html')
     
