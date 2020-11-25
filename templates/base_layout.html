@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav class="navbar navbar-light bg-light justify-content between">
-        <a class="navbar-brand">Stock App</a>
+        <a href="{{ url_for('home_page') }}" class="navbar-brand">Stock App</a>
     </nav>
     <div class="container mt-3">
         {% block content %}{% endblock %}

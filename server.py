@@ -17,6 +17,6 @@ def stock(ticker):
     return render_template('stock_quote.html', ticker=ticker, stock_price=price)
 
 @app.route('/')
-def home():
+def home_page():
     return render_template('index.html')
     
