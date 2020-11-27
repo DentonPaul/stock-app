@@ -1,17 +1,18 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, current_app
 import requests
 
-API_URL = 'https://financialmodelingprep.com/api/v3/stock/real-time-price/{ticker}'
+# API_URL = 'https://financialmodelingprep.com/api/v3/stock/real-time-price/{ticker}'
 
 stock = Blueprint('stock', __name__)
 
 def fetch_price(ticker):
-    data = requests.get(API_URL.format(ticker=ticker.upper()), params={'apikey':'demo'}).json()
+    url = '{}/stock/real-time-price/{}'.format(current_app.config['STOCK_API_BASE_URL'], ticker.upper())
+    data = requests.get(url, params={'apikey': current_app.config['STOCK_API_KEY']}).json()
     return data['price']
 
 def fetch_income(ticker):
-    url = 'https://financialmodelingprep.com/api/v3/financials/income-statement/{}'.format(ticker)
-    financials = requests.get(url, params={'period': 'quarter', 'apikey': 'demo'}).json()["financials"]
+    url = '{}financials/income-statement/{}'.format(current_app.config['STOCK_API_BASE_URL'], ticker.upper())
+    financials = requests.get(url, params={'apikey': current_app.config['STOCK_API_KEY']}).json()["financials"]
     financials.sort(key=lambda quarter: quarter["date"])
     return financials
 
