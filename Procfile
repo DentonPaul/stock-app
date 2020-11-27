@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:$PORT server:stock_app --log-level "debug"
+web: gunicorn --bind 0.0.0.0:$PORT stock_app:create_app --log-level "debug"
