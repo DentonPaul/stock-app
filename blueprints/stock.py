@@ -3,7 +3,7 @@ import requests
 
 API_URL = 'https://financialmodelingprep.com/api/v3/stock/real-time-price/{ticker}'
 
-stock = Blueprint('stock', __name__, url_prefix='/stock')
+stock = Blueprint('stock', __name__)
 
 def fetch_price(ticker):
     data = requests.get(API_URL.format(ticker=ticker.upper()), params={'apikey':'demo'}).json()
