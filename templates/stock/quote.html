@@ -2,6 +2,7 @@
 {% block title %} Stock Quote {% endblock %}
 
 {% block content %}
+<a href="{{ url_for('.financials', ticker=ticker) }}">View Financials</a>
 <div class="row">
     <div class="col-sm">
         <h1 class="mb-3">{{ticker | upper}}</h1>

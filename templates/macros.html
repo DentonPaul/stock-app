@@ -1,3 +1,3 @@
 {% macro stock_quote_link(stock_ticker) %}
-    <a href="{{ url_for('stock', ticker=stock_ticker) }}">Veiw {{ stock_ticker }}</a>
+    <a href="{{ url_for('stock.quote', ticker=stock_ticker) }}">Veiw {{ stock_ticker }}</a>
 {% endmacro %}
