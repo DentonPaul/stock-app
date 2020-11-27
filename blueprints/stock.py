@@ -22,5 +22,13 @@ def quote(ticker):
 
 @stock.route('/<string:ticker>/financials')
 def financials(ticker):
-    data = fetch_income(ticker)
-    return render_template('stock/financials.html', ticker=ticker, financials=data)
+    financials = fetch_income(ticker)
+
+    chart_data = [float(q["EPS"]) for q in financials if q["EPS"]]
+    chart_params = {"type": 'line',
+                    "data": {
+                        'labels': [q["date"] for q in financials if q["EPS"]],
+                        'datasets': [{'label': 'EPS', 'data': chart_data}]
+                    }}
+    return render_template('stock/financials.html', ticker=ticker, financials=financials, 
+                            chart_params=chart_params)
