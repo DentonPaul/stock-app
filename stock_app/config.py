@@ -6,12 +6,10 @@ class BaseConfig:
 
 class DevConfig(BaseConfig):
     EXPLAIN_TEMPLATE_LOADING = True
-    pass
 
 class ProdConfig(BaseConfig):
     # STOCK_API_KEY = 'prodkey'
     STOCK_API_KEY = os.getenv('STOCK_API_KEY', 'demo')
-    pass
 
 class TestConfig(BaseConfig):
     pass
