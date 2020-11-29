@@ -8,11 +8,10 @@ class DevConfig(BaseConfig):
     EXPLAIN_TEMPLATE_LOADING = True
 
 class ProdConfig(BaseConfig):
-    # STOCK_API_KEY = 'prodkey'
-    STOCK_API_KEY = os.getenv('STOCK_API_KEY', 'demo')
+    EXPLAIN_TEMPLATE_LOADING = False
 
 class TestConfig(BaseConfig):
-    pass
+    FLASK_ENV = 'development'
 
 connfigurations = {
     'prod': ProdConfig,
