@@ -8,5 +8,4 @@ def home_page():
 
 @home.route('/lookup', methods=['POST'])
 def lookup():
-    print(request.form)
     return redirect(url_for('stock.quote', ticker=request.form['ticker']))
