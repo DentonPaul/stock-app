@@ -15,7 +15,7 @@
             </li>
         </ul>
         <form class="form-inline" method="POST" action="{{ url_for('home.lookup') }}">
-            <input oninput="this.value = this.value.toUpperCase()" class="form-control mr-sm-2" type="input" name="ticker" placeholder="AAPL" aria-label="Lookup">
+            <input oninput="this.value = this.value.toUpperCase()" class="form-control mr-sm-2" type="input" name="ticker" placeholder="AAPL" value='AAPL' aria-label="Lookup">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
             Lookup
             </button>
