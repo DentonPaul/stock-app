@@ -15,7 +15,7 @@ def create_app(environment_name="dev"):
     app.register_blueprint(home)
     return app
 
-app = create_app('dev')
+app = create_app('prod') # this line is for heroku, do not need in vscode
 
 
     
