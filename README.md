@@ -3,6 +3,6 @@
 - Linked to heroku account under dentongpaul@gmail.com
 - From tutorial : https://www.newline.co/fullstack-flask
 - Only works with stock AAPL because of the free API stock I am using: https://financialmodelingprep.com/api/v3/ (API Key in vscode)
-- Need to look into logging
+- Need to look into logging (set up log files, send email when there is an error, etc.)
 - Enable heroku authentication
-- Chart API: https://quickchart.io/chart?width=500&height=200&c={{ chart_params }}
+- Chart API: https://quickchart.io
