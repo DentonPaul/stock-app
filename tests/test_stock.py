@@ -18,7 +18,6 @@ class MockNotFound:
     def json():
         return {}
 
-
 def test_quote(client, monkeypatch):
     def mock_get(*args, **kwargs):
         return MockPrice
@@ -52,3 +51,11 @@ def test_invalid_quote(client, monkeypatch):
 
     with pytest.raises(KeyError):
         client.get(url_for('stock.quote', ticker='NOTFOUND'))
+
+def test_invalid_empty_ticker(client, monkeypatch):
+    def mock_empty_response(*args, **kwargs):
+        return MockNotFound
+    monkeypatch.setattr(requests, 'get', mock_empty_response)
+
+    response = client.get(url_for('stock.quote', ticker='ticker').replace('ticker', ''))
+    assert response.status_code == 404

@@ -6,3 +6,5 @@
 - Need to look into logging (set up log files, send email when there is an error, etc.)
 - Enable heroku authentication
 - Chart API: https://quickchart.io
+- To run testing and code coverage, run: 'pytest --cov=stock_app --cov-report term-missing' on the terminal.
+- fix Company: Unknown

@@ -11,8 +11,8 @@ class ProdConfig(BaseConfig):
     EXPLAIN_TEMPLATE_LOADING = False
 
 class TestConfig(BaseConfig):
-    os.environ['FLASK_ENV'] = 'development'
-    # pass
+    # do NOT put os.environ['FLASK_DEBUG'] = '1'
+    pass
 
 connfigurations = {
     'prod': ProdConfig,

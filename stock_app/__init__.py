@@ -1,21 +1,27 @@
 from flask import Flask, render_template
 from stock_app.blueprints.stock import stock
 from stock_app.blueprints.home import home
+from stock_app.blueprints.errors import errors
 from stock_app.config import connfigurations
+# from stock_app.logs.conflogs import LogSetup
 
-def create_app(environment_name="dev"):
+def create_app(env_name="dev"):
     app = Flask(__name__)
-    app.config.from_object(connfigurations[environment_name])
+    app.config.from_object(connfigurations[env_name])
 
-    @app.errorhandler(500)
-    def handle_error(exception):
-        return render_template('500.html'), 500  # pragma: no cover (for pytest to ignore line)
+    register_all_blueprints(app, env_name)
+    # initialize_logging(app)
 
-    app.register_blueprint(stock, url_prefix='/stock')
-    app.register_blueprint(home)
     return app
 
-app = create_app('prod') # this line is for heroku, do not need in vscode
+def register_all_blueprints(app, env_name):
+    if env_name.lower() == 'prod':
+        app.register_blueprint(errors) # pragma: no cover
+    app.register_blueprint(stock, url_prefix='/stock')
+    app.register_blueprint(home)
 
+# def initialize_logging(app):
+#     logs = LogSetup()
+#     logs.init_app(app)
 
-    
+app = create_app('prod') # not necessary (for heroku to launch app)
