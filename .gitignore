@@ -18,3 +18,7 @@ database.db
 # Visual Studio Code
 .vscode
 .DS_Store
+
+# log files
+stock_app/logs/error_file.log
+stock_app/logs/info_file.log
