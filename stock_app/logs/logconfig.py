@@ -18,11 +18,11 @@ class LogSetup(object): # pragma: no cover
             disable_existing_loggers=True,
             formatters={
                 "default": {
-                    "format": "[%(asctime)19s] [%(levelname)8s] : %(message)s (%(filename)s: %(lineno)s)",
+                    "format": "[%(asctime)19s] %(levelname)-8s : %(message)s (%(filename)s: %(lineno)s)",
                     "datefmt": "%Y-%m-%d %H:%M:%S",
                 },
                 "info": {
-                    "format": "[%(asctime)19s] [%(levelname)8s] : %(message)s (%(filename)s: %(lineno)s)",
+                    "format": "[%(asctime)19s] %(levelname)-8s : %(message)s (%(filename)s: %(lineno)s)",
                     "datefmt": "%Y-%m-%d %H:%M:%S",
                 }
             },
