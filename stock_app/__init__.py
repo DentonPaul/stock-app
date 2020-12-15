@@ -24,4 +24,4 @@ def initialize_logging(app):
     logs = LogSetup()
     logs.init_app(app)
 
-# app = create_app('prod') # not necessary (for heroku to launch app)
+app = create_app('prod') # not necessary (for heroku to launch app)
