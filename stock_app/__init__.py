@@ -3,14 +3,14 @@ from stock_app.blueprints.stock import stock
 from stock_app.blueprints.home import home
 from stock_app.blueprints.errors import errors
 from stock_app.config import connfigurations
-# from stock_app.logs.conflogs import LogSetup
+from stock_app.logs.logconfig import LogSetup
 
 def create_app(env_name="dev"):
     app = Flask(__name__)
     app.config.from_object(connfigurations[env_name])
 
+    initialize_logging(app)
     register_all_blueprints(app, env_name)
-    # initialize_logging(app)
 
     return app
 
@@ -20,8 +20,8 @@ def register_all_blueprints(app, env_name):
     app.register_blueprint(stock, url_prefix='/stock')
     app.register_blueprint(home)
 
-# def initialize_logging(app):
-#     logs = LogSetup()
-#     logs.init_app(app)
+def initialize_logging(app):
+    logs = LogSetup()
+    logs.init_app(app)
 
-app = create_app('prod') # not necessary (for heroku to launch app)
+# app = create_app('prod') # not necessary (for heroku to launch app)
