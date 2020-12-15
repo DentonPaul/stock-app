@@ -13,3 +13,10 @@ def fetch_income(ticker, config):
     financials = requests.get(url, params={'apikey': config['STOCK_API_KEY']}).json()["financials"]
     financials.sort(key=lambda quarter: quarter["date"])
     return financials
+
+def fetch_company_name(ticker, config):
+    url = '{}profile/{}'.format(config['STOCK_API_BASE_URL'], ticker.upper())
+    try:
+        return requests.get(url, params={'apikey': config['STOCK_API_KEY']}).json()['companyName']
+    except: # pragma: no cover
+        return requests.get(url, params={'apikey': config['STOCK_API_KEY']}).json()[0]['companyName']

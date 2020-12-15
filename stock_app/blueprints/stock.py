@@ -1,12 +1,13 @@
 from flask import Blueprint, render_template, current_app
-from stock_app.stock_data import fetch_price, fetch_income
+from stock_app.stock_data import fetch_price, fetch_income, fetch_company_name
 
 stock = Blueprint('stock', __name__)
 
 @stock.route('/<string:ticker>')
 def quote(ticker):
     price = fetch_price(ticker, current_app.config)
-    return render_template('stock/quote.html', ticker=ticker, stock_price=price)
+    company_name = fetch_company_name(ticker, current_app.config)
+    return render_template('stock/quote.html', ticker=ticker, stock_price=price, company_name=company_name)
 
 @stock.route('/<string:ticker>/financials')
 def financials(ticker):

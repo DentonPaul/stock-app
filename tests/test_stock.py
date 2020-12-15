@@ -5,7 +5,7 @@ import pytest
 class MockPrice:
     @staticmethod
     def json():
-        return {'price': 42, 'ticker': 'AAPL'}
+        return {'price': 42, 'ticker': 'AAPL', 'companyName': 'Apple Inc'}
 
 class MockFinancials:
     @staticmethod
@@ -23,11 +23,13 @@ def test_quote(client, monkeypatch):
         return MockPrice
 
     monkeypatch.setattr(requests, 'get', mock_get)
+    print(url_for('stock.quote', ticker='AAPL'))
 
     response = client.get(url_for('stock.quote', ticker='AAPL'))
     assert response.status_code == 200
     assert b'Price: $42' in response.data
     assert b'AAPL' in response.data
+    assert b'Apple Inc' in response.data
 
 def test_financials(client, monkeypatch):
     def mock_get(*args, **kwargs):
