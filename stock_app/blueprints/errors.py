@@ -9,7 +9,7 @@ errors = Blueprint('errors', __name__)
 def handle_error(exception): # pragma: no cover
     logging.getLogger('app.access').error('There was an error: ' + str(exception))
     logging.getLogger('app.error').error(exception, exc_info=True)
-    logging.getLogger('app.email').error('hello there')
+    # logging.getLogger('app.email').error('hello there')  ## DOES NOT WORK ON HEROKU
     return render_template('errors/500.html'), 500  # pragma: no cover
 
 @errors.app_errorhandler(404)

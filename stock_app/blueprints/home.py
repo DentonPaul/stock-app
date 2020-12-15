@@ -12,7 +12,7 @@ def logs_status(): # pragma: no cover
     logging.getLogger('app.info').info('this goes to info_file.log')
     logging.getLogger('app.error').error('this goes to error_file.log')
     logging.getLogger('root').info('this goes to terminal')
-    logging.getLogger('app.email').info('this should be emailed to dp.midfielder7@gmail.com')
+    # logging.getLogger('app.email').info('this should be emailed to dp.midfielder7@gmail.com') # DOES NOT WORK ON HEROKU
     return make_response("LOGS ARE A SUCCESS", 200)
 
 @home.route('/lookup', methods=['POST'])
