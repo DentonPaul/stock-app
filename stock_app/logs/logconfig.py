@@ -16,13 +16,18 @@ class LogSetup(object): # pragma: no cover
         logging_config = dict(
             version=1,
             disable_existing_loggers=True,
+            filters = {
+                "InfoDebugOnly": {
+                    "()": "stock_app.logs.logconfig.InfoDebugOnlyFilter",
+                }
+            },
             formatters={
                 "default": {
-                    "format": "[%(asctime)19s] %(levelname)-8s : %(message)s (%(filename)s: %(lineno)s)",
+                    "format": "[%(asctime)19s] %(name)-9s %(levelname)-8s : %(message)s (%(filename)s: %(lineno)s)",
                     "datefmt": "%Y-%m-%d %H:%M:%S",
                 },
                 "info": {
-                    "format": "[%(asctime)19s] %(levelname)-8s : %(message)s (%(filename)s: %(lineno)s)",
+                    "format": "[%(asctime)19s] %(name)-8s %(levelname)s : %(message)s (%(filename)s: %(lineno)s)",
                     "datefmt": "%Y-%m-%d %H:%M:%S",
                 }
             },
@@ -34,7 +39,7 @@ class LogSetup(object): # pragma: no cover
                     "stream": "ext://sys.stdout",
                 }, 
                 "email": {
-                    "level": "INFO",
+                    "level": "WARNING",
                     "class": "stock_app.logs.logconfig.TlsSMTPHandler",
                     "formatter": "default",
                     "mailhost": app.config['LOG_EMAIL_MAILHOST'],
@@ -44,6 +49,7 @@ class LogSetup(object): # pragma: no cover
                     "credentials": (app.config['LOG_EMAIL_FROMADDR'], app.config['LOG_EMAIL_PWD']),
                 },
                 "error_file": {
+                    "level": "WARNING",
                     "class": "logging.handlers.TimedRotatingFileHandler",
                     "formatter": "default",
                     "filename": app.config['LOG_FILE_PATH'] + app.config['LOG_ERROR_NAME'],
@@ -54,6 +60,7 @@ class LogSetup(object): # pragma: no cover
                 },
                 "info_file": {
                     "class": "logging.handlers.TimedRotatingFileHandler",
+                    "filters": ["InfoDebugOnly"],
                     "formatter": "info",
                     "filename": app.config['LOG_FILE_PATH'] + app.config['LOG_INFO_NAME'],
                     "when": app.config['LOG_WHEN'],
@@ -64,27 +71,17 @@ class LogSetup(object): # pragma: no cover
             },
             # if you want to test functionality of loggers in testing 
             # then get rid of ["console"] if debug else
-            loggers={ 
-                "app.error": {
-                    "level": "INFO",
-                    "handlers": ["console"] if debug else ["error_file"],
+            loggers={
+                'werkzeug': { # routes
+                    'level': 'DEBUG' if debug else "INFO",
+                    'handlers': ['console'] if debug else ['info_file', 'error_file', 'email'],
                     "propagate": False,
-                },
-                "app.info": {
-                    "level": "INFO",
-                    "handlers": ["console"] if debug else ["info_file"],
-                    "propagate": False,
-                },
-                "app.email": {
-                    "level": "INFO",
-                    "handlers": ['console'] if debug else ["email"],
-                    "propagate": False,
-                },
-                "root": {
-                    "level": "INFO",
-                    "handlers": ["console"],
-                    "propagate": True,
                 }
+            },
+            root = {
+                "level": "DEBUG" if debug else "INFO",
+                "handlers": ["console"] if debug else ['info_file', 'error_file', 'email'],
+                "propagate": False,
             }
         )
 
@@ -125,3 +122,7 @@ class TlsSMTPHandler(logging.handlers.SMTPHandler): # pragma: no cover
 
         # quit the server
         server.quit()
+
+class InfoDebugOnlyFilter(logging.Filter): # pragma: no cover
+    def filter(self, record):
+        return record.levelno <= logging.INFO

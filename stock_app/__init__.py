@@ -11,7 +11,7 @@ def create_app(env_name="dev"):
 
     initialize_logging(app)
     register_all_blueprints(app, env_name)
-
+ 
     return app
 
 def register_all_blueprints(app, env_name):
@@ -24,4 +24,4 @@ def initialize_logging(app):
     logs = LogSetup()
     logs.init_app(app)
 
-app = create_app('prod') # not necessary (for heroku to launch app)
+app = create_app('prod') # (for heroku to launch app)

@@ -6,13 +6,17 @@ errors = Blueprint('errors', __name__)
 
 ## catch all - 500 ##
 @errors.app_errorhandler(500)
-def handle_error(exception): # pragma: no cover
-    logging.getLogger('app.access').error('There was an error: ' + str(exception))
-    logging.getLogger('app.error').error(exception, exc_info=True)
-    # logging.getLogger('app.email').error('hello there')  ## DOES NOT WORK ON HEROKU
-    return render_template('errors/500.html'), 500  # pragma: no cover
+def internal_server(exception): # pragma: no cover
+    # this will go to info_file.log
+    logging.info('ERROR occured. Look in error_file.log')
+    # will go to error_file.log and email (email does not work on heroku)
+    # logging.error(exception, exc_info=True) # will go to error_file.log and email (does not work on heroku)
+    return render_template('errors/500.html'), 500  
 
 @errors.app_errorhandler(404)
-def handle_error(exception): # pragma: no cover
-    logging.getLogger('app.error').error(exception, exc_info=True)
-    return render_template('errors/404.html'), 404  # pragma: no cover
+def page_not_found(exception): # pragma: no cover
+    # this will go to info_file.log
+    logging.info('ERROR occured. Look in error_file.log')
+    # will go to error_file.log and email (email does not work on heroku)
+    # logging.error(exception, exc_info=True) 
+    return render_template('errors/404.html'), 404  

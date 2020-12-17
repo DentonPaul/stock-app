@@ -9,10 +9,12 @@ def home_page():
 
 @home.route("/logstatus", methods=["GET"])
 def logs_status(): # pragma: no cover
-    logging.getLogger('app.info').info('this goes to info_file.log')
-    logging.getLogger('app.error').error('this goes to error_file.log')
-    logging.getLogger('root').info('this goes to terminal')
-    # logging.getLogger('app.email').info('this should be emailed to dp.midfielder7@gmail.com') # DOES NOT WORK ON HEROKU
+    logging.debug('This will not go anywhere in production. Will go to console in development/debug mode')
+    logging.info('This will go to info_file.log as "root" logger')
+    logging.warning('This will go to error_file.log and email')
+    logging.error('This will go to error_file.log and email')
+    logging.critical('This will go to error_file.log and email')
+    logging.exception('This will go to error_file.log and email')
     return make_response("LOGS ARE A SUCCESS", 200)
 
 @home.route('/lookup', methods=['POST'])
