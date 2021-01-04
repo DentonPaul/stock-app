@@ -99,6 +99,8 @@ class TlsSMTPHandler(logging.handlers.SMTPHandler): # pragma: no cover
 
         msg['Subject'] = self.getSubject(record)
         msg['From'] = self.fromaddr
+        toaddrs = self.toaddrss
+        msg['To'] = ', '.join(toaddrs)
 
         text =  MIMEText(self.format(record))
         msg.attach(text)
@@ -115,10 +117,9 @@ class TlsSMTPHandler(logging.handlers.SMTPHandler): # pragma: no cover
         server.ehlo()
         # Now we need to login
         server.login(email, pas)
-
-        for toaddrs in self.toaddrs:
-            msg['To'] = toaddrs
-            server.sendmail(email, toaddrs, msg.as_string())
+        
+        # sends to all recipients
+        server.sendmail(email, toaddrs, msg.as_string())
 
         # quit the server
         server.quit()
